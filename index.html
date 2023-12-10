@@ -1,1 +1,69 @@
-T
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Auto Close Page</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background-color: #f0f0f0;
+        flex-direction: column;
+      }
+      iframe {
+        height: 100vh;
+        width: 100%;
+      }
+      #timer {
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <p>This page will automatically close after <span id="timer"></span>.</p>
+    </div>
+    <iframe
+      src="https://docs.google.com/forms/d/e/1FAIpQLSfkBgokISRMyXhLAA3gx-FQA8DvhDGohHBv1WJQzJwIu4MnzA/viewform"
+      frameborder="0"
+    ></iframe>
+
+    <script>
+      // Function to update the timer display
+      function updateTimer(seconds) {
+        const timerElement = document.getElementById("timer");
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        timerElement.textContent = `${minutes} minutes and ${remainingSeconds} seconds`;
+      }
+
+      // Function to close the window after 5 minutes
+      function closeWindow() {
+        window.close();
+      }
+
+      // Countdown timer for 5 minutes
+      const timerDuration = 5 * 60; // 5 minutes in seconds
+      let timeLeft = timerDuration;
+
+      // Update the timer every second
+      const countdown = setInterval(function () {
+        timeLeft--;
+        updateTimer(timeLeft);
+
+        if (timeLeft <= 0) {
+          clearInterval(countdown);
+          closeWindow();
+        }
+      }, 1000);
+
+      // Initial display of the timer
+      updateTimer(timeLeft);
+    </script>
+  </body>
+</html>
